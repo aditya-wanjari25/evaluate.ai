@@ -1,0 +1,10 @@
+{
+    "industry_analysis_score": 28,
+    "industry_analysis_feedback": "The response effectively identifies and explains the key industry force of supplier bargaining power, particularly due to Southwest's dependency on Boeing. The explanation is clear and well-supported with historical context and comparative analysis.",
+    "comparison_score": 27,
+    "comparison_feedback": "The response effectively analyzes the secondary force of supplier power and compares it with the threat of new entrants, providing clear reasoning and examples. However, a bit more discussion on how Boeing's leverage specifically affects Southwest's operations could enhance the analysis.",
+    "rag_score": 22,
+    "rag_feedback": "Good use of the case: you correctly identify Southwest’s single-fleet strategy (only 737s), its fuel-efficiency advantage, point-to-point model, and the competitive threats from Continental Lite and United. However, several factual claims are unsupported or incorrect in the case: the “3 Boeing 737s in 1971” detail isn’t shown, the case does not state Boeing’s negotiating leverage over Southwest, and the cost figures are misstated (United and Continental did not have costs “more than 10 cents per mile than Southwest” as written).",
+    "presentation_score": 8,
+    "presentation_feedback": "The response is well-structured with clear arguments supporting the main point, but some sentences are lengthy, affecting clarity. Minor grammatical issues needed attention for a higher score."
+}

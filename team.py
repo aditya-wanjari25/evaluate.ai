@@ -39,7 +39,7 @@ knowledge = Knowledge(
         table_name="pdf_docs",
         db_url=db_url,
         search_type=SearchType.hybrid,
-        embedder=OpenAIEmbedder(id="text-embedding-3-large"),
+        embedder=OpenAIEmbedder(id="text-embedding-3-small"),
     ),
 )
 
@@ -48,19 +48,6 @@ knowledge.add_content(
     reader=PDFReader()
 
 )
-# pdf_knowledge_base = Knowledge(
-#     path="Data/southwest/southwest_case_study.pdf",
-#     # Table name: ai.pdf_documents
-#     vector_db=PgVector(
-#         table_name="pdf_documents",
-#         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
-#         embedder=OpenAIEmbedder(id="text-embedding-3-large"),
-
-#     ),
-#     reader=PDFReader(chunk=True),
-# )
-
-#  Defining Agents
 
 rubric_agent1 = Agent(
     model = OpenAIChat(id = "gpt-4o", api_key = API_KEY),
@@ -77,7 +64,7 @@ rubric_agent2 = Agent(
     )
 
 rubric_agent3 = Agent(
-    model = OpenAIChat(id = "gpt-4o", api_key = API_KEY),
+    model = OpenAIChat(id = "gpt-5-mini", api_key = API_KEY),
     name = "RAG Agent",
     knowledge=knowledge,
     search_knowledge=True,
@@ -94,6 +81,16 @@ rubric_agent4 = Agent(
     )
 
 
+class StudentReport(BaseModel):
+    industry_analysis_score : int
+    industry_analysis_feedback : str
+    comparison_score : int
+    comparison_feedback : str
+    rag_score : int
+    rag_feedback : str
+    presentation_score : int
+    presentation_feedback : str
+
 team = Team(
     name = "Evaluator Team",
     model = OpenAIChat(id = "gpt-4o", api_key = API_KEY),
@@ -105,7 +102,21 @@ team = Team(
         "Provide the student response to all 4 agents and submit their outputs to the user"
     ],
     show_members_responses=True,
+    output_schema= StudentReport
 
 )
 
-team.print_response(input=prompts.TEST_RESPONSE)
+response = team.run(input=prompts.TEST_RESPONSE)
+response = response.content
+
+
+fields = StudentReport.model_fields.keys()  # Pydantic v2 (use .__fields__ for v1)
+values = {field: getattr(response, field) for field in fields}
+report = StudentReport(**values)
+
+data = dict(report)
+# print(data)
+
+# Save to JSON
+with open("student_report.json", "w") as f:
+    f.write(report.model_dump_json(indent=4))  # Pydantic v2
