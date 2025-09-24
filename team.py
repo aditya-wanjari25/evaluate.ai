@@ -110,7 +110,7 @@ response = team.run(input=prompts.TEST_RESPONSE)
 response = response.content
 
 
-fields = StudentReport.model_fields.keys()  # Pydantic v2 (use .__fields__ for v1)
+fields = StudentReport.model_fields.keys()  
 values = {field: getattr(response, field) for field in fields}
 report = StudentReport(**values)
 
