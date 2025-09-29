@@ -31,7 +31,7 @@ class GradeResponse(BaseModel):
     grade : int = Field(..., description="Student Grade")
 
 
-db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
+db_url = os.getenv("DATABASE_URL", "postgresql+psycopg://ai:ai@postgres:5432/ai")
 
 knowledge = Knowledge(
     # Use PgVector as the vector database and store embeddings in the `ai.recipes` table
