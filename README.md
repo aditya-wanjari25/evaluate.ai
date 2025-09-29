@@ -9,3 +9,7 @@ Features:
 * ䷶ Async + Batch Processing for Bulk Uploads: Process hundreds of assignments simultaneously with concurrent execution
 
 
+## Quick Start
+1. Clone the repo
+2. Run the app ```docker-compose up --build```
+3. For batch grading ```docker-compose run grader python batch_grader.py```
